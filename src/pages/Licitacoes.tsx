@@ -125,7 +125,7 @@ const Licitacoes = () => {
                 <SelectValue placeholder="Modalidade" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todas as modalidades</SelectItem>
+                <SelectItem value="all">Todas as modalidades</SelectItem>
                 <SelectItem value="Pregão Eletrônico">Pregão Eletrônico</SelectItem>
                 <SelectItem value="Tomada de Preços">Tomada de Preços</SelectItem>
                 <SelectItem value="Concorrência">Concorrência</SelectItem>
@@ -138,7 +138,7 @@ const Licitacoes = () => {
                 <SelectValue placeholder="Ano" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todos os anos</SelectItem>
+                <SelectItem value="all">Todos os anos</SelectItem>
                 <SelectItem value="2023">2023</SelectItem>
                 <SelectItem value="2022">2022</SelectItem>
                 <SelectItem value="2021">2021</SelectItem>
@@ -150,7 +150,7 @@ const Licitacoes = () => {
                 <SelectValue placeholder="Situação" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todas as situações</SelectItem>
+                <SelectItem value="all">Todas as situações</SelectItem>
                 <SelectItem value="Homologada">Homologada</SelectItem>
                 <SelectItem value="Em andamento">Em andamento</SelectItem>
               </SelectContent>

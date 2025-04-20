@@ -109,7 +109,7 @@ const Contratos = () => {
                 <SelectValue placeholder="Ano" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todos os anos</SelectItem>
+                <SelectItem value="all">Todos os anos</SelectItem>
                 <SelectItem value="2023">2023</SelectItem>
                 <SelectItem value="2022">2022</SelectItem>
                 <SelectItem value="2021">2021</SelectItem>
@@ -121,7 +121,7 @@ const Contratos = () => {
                 <SelectValue placeholder="Fornecedor" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todos os fornecedores</SelectItem>
+                <SelectItem value="all">Todos os fornecedores</SelectItem>
                 <SelectItem value="Química Industrial Ltda">Química Industrial Ltda</SelectItem>
                 <SelectItem value="Construtora Água Boa Ltda">Construtora Água Boa Ltda</SelectItem>
                 <SelectItem value="Tubos & Conexões S.A.">Tubos & Conexões S.A.</SelectItem>
