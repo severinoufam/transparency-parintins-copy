@@ -215,7 +215,7 @@ const Licitacoes = () => {
                     <TableCell>{licitacao.valor}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end space-x-2">
-                        <Link to={`/licitacoes/${licitacao.id}`}>
+                        <Link to={`/licitacoes/${licitacao.id.replace('/', '-')}`}>
                           <Button variant="ghost" size="icon" title="Visualizar detalhes">
                             <FileText className="h-4 w-4" />
                           </Button>

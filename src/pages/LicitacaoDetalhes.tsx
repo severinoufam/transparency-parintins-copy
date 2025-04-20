@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { FileText, Download } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "@/components/ui/sonner";
 
 // Type definitions for our data
 interface Documento {
@@ -35,10 +36,15 @@ const fetchLicitacaoDetails = async (id: string): Promise<LicitacaoDetalhada> =>
   // Simulating API delay
   await new Promise(resolve => setTimeout(resolve, 500));
   
+  // Convert ID back from URL format if needed
+  const originalId = id.includes('-') ? id.replace('-', '/') : id;
+  
+  console.log("Fetching details for licitação ID:", originalId);
+  
   return {
-    id: id,
+    id: originalId,
     modalidade: "Pregão Eletrônico",
-    numero: id,
+    numero: originalId,
     objeto: "Aquisição de produtos químicos para tratamento de água",
     dataAbertura: "15/03/2023 às 09:00",
     dataPublicacao: "01/03/2023",
@@ -77,12 +83,17 @@ const fetchLicitacaoDetails = async (id: string): Promise<LicitacaoDetalhada> =>
 };
 
 const LicitacaoDetalhes = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   
-  const { data: licitacao, isLoading } = useQuery({
+  const { data: licitacao, isLoading, error } = useQuery({
     queryKey: ['licitacao', id],
     queryFn: () => fetchLicitacaoDetails(id || ''),
-    enabled: !!id
+    enabled: !!id,
+    meta: {
+      onError: (error: Error) => {
+        toast.error(`Erro ao carregar dados: ${error.message}`);
+      }
+    }
   });
 
   if (isLoading) {
@@ -102,11 +113,19 @@ const LicitacaoDetalhes = () => {
     );
   }
 
-  if (!licitacao) {
+  if (error || !licitacao) {
     return (
       <Layout>
         <div className="container mx-auto px-4 py-8">
-          <h1 className="text-2xl font-bold text-red-600">Licitação não encontrada</h1>
+          <div className="text-center space-y-4">
+            <h1 className="text-2xl font-bold text-red-600">Licitação não encontrada</h1>
+            <p className="text-gray-600">Não foi possível encontrar os detalhes desta licitação.</p>
+            <Link to="/licitacoes">
+              <Button className="bg-saae-blue hover:bg-saae-blue/90">
+                Voltar para Licitações
+              </Button>
+            </Link>
+          </div>
         </div>
       </Layout>
     );
@@ -116,6 +135,16 @@ const LicitacaoDetalhes = () => {
     <Layout>
       <div className="bg-saae-blue py-8 text-white">
         <div className="container mx-auto px-4">
+          <div className="flex items-center space-x-2 mb-4">
+            <Link to="/licitacoes" className="text-white hover:underline flex items-center">
+              <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 p-1">
+                <FileText className="h-4 w-4 mr-1" />
+                Licitações
+              </Button>
+            </Link>
+            <span>/</span>
+            <span className="text-white/80">Detalhes</span>
+          </div>
           <h1 className="text-2xl md:text-3xl font-bold">Detalhes da Licitação</h1>
           <p className="mt-2">Licitação Nº {licitacao.numero}</p>
         </div>
