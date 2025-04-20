@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
@@ -6,8 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { FileText, Download, Search } from "lucide-react";
+import { Link } from "react-router-dom";
 
-// Mock data for bids
 const mockLicitacoes = [
   {
     id: "001/2023",
@@ -216,10 +215,12 @@ const Licitacoes = () => {
                     <TableCell>{licitacao.valor}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end space-x-2">
-                        <Button variant="ghost" size="icon" title="Visualizar documentos">
-                          <FileText className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon" title="Baixar edital">
+                        <Link to={`/licitacoes/${licitacao.id}`}>
+                          <Button variant="ghost" size="icon" title="Visualizar detalhes">
+                            <FileText className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                        <Button variant="ghost" size="icon" title="Baixar documentos">
                           <Download className="h-4 w-4" />
                         </Button>
                       </div>
